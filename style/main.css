@@ -1,5 +1,6 @@
 
 :root {
+  --c-white    : #e6eef5;
   --c-lightest : #BAD2E0;
   --c-light    : #82AFF2;
   --c-mid      : #3078CD;
@@ -13,7 +14,7 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: 'DM Sans', sans-serif;
-  background: var(--c-lightest);
+  background: var(--c-white);
   color: var(--c-darkest);
   min-height: 100vh; /*For behavior, needs to be deleted */
 }
@@ -174,137 +175,78 @@ nav.scrolled {
   padding: 2rem;
 }
 
-.hero-eyebrow {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--c-light);
-  margin-bottom: 1.5rem;
-  padding: 0.35rem 1rem;
-  border: 1px solid rgba(130, 175, 242, 0.3);
-  border-radius: 100px;
-  background: rgba(130, 175, 242, 0.08);
-}
 
-.hero h1 {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(2.6rem, 6vw, 4.5rem);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  color: #fff;
-  margin-bottom: 1.5rem;
-}
+/* Hero-bg */
 
-.hero h1 em {
-  font-style: italic;
-  color: var(--c-light);
-}
-
-.hero p {
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: var(--c-lightest);
-  opacity: 0.75;
-  max-width: 520px;
-  margin: 0 auto 2.5rem;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.75rem;
-  border-radius: 10px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.btn:hover { transform: translateY(-2px); }
-
-.btn-primary {
-  background: var(--c-mid);
-  color: #fff;
-  box-shadow: 0 4px 20px rgba(48, 120, 205, 0.4);
-}
-
-.btn-primary:hover {
-  box-shadow: 0 8px 30px rgba(48, 120, 205, 0.55);
-}
-
-.btn-secondary {
-  background: rgba(186, 210, 224, 0.1);
-  color: var(--c-lightest);
-  border: 1px solid rgba(186, 210, 224, 0.2);
-}
-
-.btn-secondary:hover {
-  background: rgba(186, 210, 224, 0.16);
-}
-
-/* ── Scroll indicator ─────────────────────────────── */
-.scroll-hint {
+.hero-bg .circle-1 {
   position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--c-light);
-  opacity: 0.5;
-  animation: fadeIn 1.5s 1s ease both;
+  top: -180px; right: -140px;
+  width: 680px; height: 680px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, var(--c-light) 0%, var(--c-mid) 55%, var(--c-dark) 100%);
+  opacity: .18;
+  animation: floatA 9s ease-in-out infinite;
 }
 
-.scroll-hint svg {
-  animation: bounce 1.6s ease infinite;
+/* Medium arc – bottom left */
+.hero-bg .circle-2 {
+  position: absolute;
+  bottom: -200px; left: -160px;
+  width: 520px; height: 520px;
+  border-radius: 50%;
+  border: 2.5px solid var(--c-mid);
+  opacity: .22;
+  animation: floatB 11s ease-in-out infinite;
 }
 
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(5px); }
+/* Thin ring – center */
+.hero-bg .circle-3 {
+  position: absolute;
+  top: 50%; left: 54%;
+  transform: translate(-50%, -50%);
+  width: 900px; height: 900px;
+  border-radius: 50%;
+  border: 1px solid var(--c-lightest);
+  opacity: .3;
+  animation: spin 40s linear infinite;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
-  to   { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+.hero-bg .stripe {
+  position: absolute;
+  top: 0; right: 18%;
+  width: 3px; height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--c-light) 30%, var(--c-mid) 70%, transparent);
+  opacity: .25;
+  transform: rotate(-12deg) scaleY(1.4);
+}
+.hero-bg .stripe-2 {
+  position: absolute;
+  top: 0; right: 21%;
+  width: 1px; height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--c-light) 40%, transparent);
+  opacity: .18;
+  transform: rotate(-12deg) scaleY(1.4);
 }
 
-/* ── Demo section below fold ──────────────────────── */
-.section-demo {
-  padding: 6rem 3rem;
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
-}
 
-.section-demo h2 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 2rem;
-  color: var(--c-lightest);
-  margin-bottom: 1rem;
-}
 
-.section-demo p {
-  color: var(--c-lightest);
-  opacity: 0.55;
-  line-height: 1.8;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ── Responsive ───────────────────────────────────── */
 @media (max-width: 680px) {
@@ -324,3 +266,5 @@ nav.scrolled {
 }
 
 .mobile-hint { display: none; }
+
+
