@@ -175,6 +175,15 @@ nav.scrolled {
   padding: 2rem;
 }
 
+.hero h1 {
+  font-size: 60px;
+}
+
+.outline {
+  color: transparent;                 /* enlève le remplissage */
+  -webkit-text-stroke: 3px var(--c-darkest);;    /* contour */
+  font-family: Arial, sans-serif;
+}
 
 /* Hero-bg */
 
@@ -253,7 +262,7 @@ nav.scrolled {
   nav { padding: 0 1.25rem; }
 
   .nav-links {
-    display: none; /* simplified for mobile */
+    display: none;
   }
 
   .mobile-hint {
