@@ -182,6 +182,7 @@ nav.scrolled {
 .outline {
   color: transparent;                 /* enlève le remplissage */
   -webkit-text-stroke: 3px var(--c-darkest);;    /* contour */
+  text-stroke: 3px var(--c-darkest);
   font-family: Arial, sans-serif;
 }
 
