@@ -1,7 +1,7 @@
-
 :root {
   --c-white    : #e6eef5;
   --c-lightest : #BAD2E0;
+  --c-light-ts : #82aff23a;
   --c-light    : #82AFF2;
   --c-mid      : #3078CD;
   --c-dark     : #25456B;
@@ -16,7 +16,7 @@ body {
   font-family: 'DM Sans', sans-serif;
   background: var(--c-white);
   color: var(--c-darkest);
-  min-height: 100vh; /*For behavior, needs to be deleted */
+  min-height: 100vh;
 }
 
 /* ── NAV ───────────────────────────────────────────── */
@@ -50,7 +50,7 @@ nav.scrolled {
   gap: 0.75rem;
   text-decoration: none;
   flex-shrink: 0;
-  height : 100%
+  height: 100%;
 }
 
 .nav-logo svg {
@@ -171,19 +171,37 @@ nav.scrolled {
 .hero-inner {
   position: relative;
   z-index: 1;
-  max-width: 720px;
-  padding: 2rem;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 4rem;
+  align-items: center;
 }
 
+/* ── Hero typography ────────────────────────────────── */
 .hero h1 {
-  font-size: 60px;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  line-height: 1.15;
+  color: var(--c-darkest);
+  margin-bottom: 1.25rem;
 }
 
 .outline {
-  color: transparent;                 /* enlève le remplissage */
-  -webkit-text-stroke: 3px var(--c-darkest);;    /* contour */
-  text-stroke: 3px var(--c-darkest);
-  font-family: Arial, sans-serif;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--c-darkest);
+  font-family: inherit;
+}
+
+.hero-text p {
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  line-height: 1.7;
+  color: var(--c-darkest);
+  opacity: 0.85;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 /* Hero-bg */
@@ -197,8 +215,6 @@ nav.scrolled {
   opacity: .18;
   animation: floatA 9s ease-in-out infinite;
 }
-
-/* Medium arc – bottom left */
 .hero-bg .circle-2 {
   position: absolute;
   bottom: -200px; left: -160px;
@@ -208,8 +224,6 @@ nav.scrolled {
   opacity: .22;
   animation: floatB 11s ease-in-out infinite;
 }
-
-/* Thin ring – center */
 .hero-bg .circle-3 {
   position: absolute;
   top: 50%; left: 54%;
@@ -220,7 +234,6 @@ nav.scrolled {
   opacity: .3;
   animation: spin 40s linear infinite;
 }
-
 .hero-bg .stripe {
   position: absolute;
   top: 0; right: 18%;
@@ -238,29 +251,96 @@ nav.scrolled {
   transform: rotate(-12deg) scaleY(1.4);
 }
 
+/* ── Hero columns ─────────────────────────────────── */
+.hero-text {
+  flex: 1 1 0;
+  text-align: left;
+}
 
+.hero-visual {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeLeft .8s .3s ease both;
+}
 
+/* ── Hero card grid ───────────────────────────────── */
+.hero-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  width: 100%;
+}
 
+.hero-card {
+  background: var(--c-light-ts);
+  border: 1px solid var(--c-light);
+  border-radius: 20px;
+  padding: 1.75rem 1.5rem;
+  backdrop-filter: blur(10px);
+  color: var(--c-dark);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
 
+.hero-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--c-mid);
+}
 
+/* ── Animations ───────────────────────────────────── */
+@keyframes floatA {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-24px); }
+}
+@keyframes floatB {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(18px); }
+}
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
 
+/* ── Responsive : tablette (≤ 900px) ──────────────── */
+@media (max-width: 900px) {
+  .hero-inner {
+    flex-direction: column;
+    gap: 2.5rem;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
 
+  .hero-text {
+    text-align: center;
+  }
 
+  .hero-text p {
+    margin: 0 auto;
+  }
 
+  .hero-visual {
+    width: 100%;
+  }
 
+  .hero-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
 
-
-
-
-
-
-
-
-
-
-/* ── Responsive ───────────────────────────────────── */
+/* ── Responsive : mobile (≤ 680px) ───────────────── */
 @media (max-width: 680px) {
-  nav { padding: 0 1.25rem; }
+  nav {
+    padding: 0 1.25rem;
+  }
 
   .nav-links {
     display: none;
@@ -273,8 +353,35 @@ nav.scrolled {
     opacity: 0.6;
     margin-top: 0.25rem;
   }
+
+  .hero-inner {
+    padding: 2.5rem 1.25rem;
+    gap: 2rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+  }
+
+  .hero-card-grid {
+    grid-template-columns: 1fr;
+    max-width: 340px;
+  }
+
+  .hero-card {
+    padding: 1.25rem 1.25rem;
+  }
+}
+
+/* ── Responsive : très petit (≤ 380px) ────────────── */
+@media (max-width: 380px) {
+  .hero-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  nav {
+    padding: 0 1rem;
+  }
 }
 
 .mobile-hint { display: none; }
-
-
