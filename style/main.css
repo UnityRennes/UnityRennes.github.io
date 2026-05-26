@@ -22,8 +22,7 @@ body {
 /* ── NAV ───────────────────────────────────────────── */
 nav {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
   z-index: 100;
   display: flex;
@@ -43,7 +42,6 @@ nav.scrolled {
   box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
 }
 
-/* ── Logo ─────────────────────────────────────────── */
 .nav-logo {
   display: flex;
   align-items: center;
@@ -53,13 +51,6 @@ nav.scrolled {
   height: 100%;
 }
 
-.nav-logo svg {
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-}
-
-/* ── Links ────────────────────────────────────────── */
 .nav-links {
   display: flex;
   align-items: center;
@@ -94,25 +85,11 @@ nav.scrolled {
   transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.nav-links li a:hover {
-  color: #fff;
-  opacity: 1;
-}
+.nav-links li a:hover { color: #fff; opacity: 1; }
+.nav-links li a:hover::after { transform: translateX(-50%) scaleX(1); }
+.nav-links li a.active { color: var(--c-light); opacity: 1; }
+.nav-links li a.active::after { transform: translateX(-50%) scaleX(1); }
 
-.nav-links li a:hover::after {
-  transform: translateX(-50%) scaleX(1);
-}
-
-.nav-links li a.active {
-  color: var(--c-light);
-  opacity: 1;
-}
-
-.nav-links li a.active::after {
-  transform: translateX(-50%) scaleX(1);
-}
-
-/* CTA button */
 .nav-cta {
   margin-left: 0.75rem;
   padding: 0.5rem 1.25rem !important;
@@ -123,60 +100,81 @@ nav.scrolled {
   opacity: 1 !important;
   transition: background 0.2s ease, transform 0.15s ease !important;
 }
-
 .nav-cta::after { display: none !important; }
+.nav-cta:hover { background: var(--c-light) !important; transform: translateY(-1px); }
 
-.nav-cta:hover {
-  background: var(--c-light) !important;
-  transform: translateY(-1px);
-}
-
+/* ── HERO ──────────────────────────────────────────── */
 .hero {
   padding-top: 72px;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  align-items: stretch;
   position: relative;
   overflow: hidden;
+}
+
+/*
+  Deux couches sur ::before et ::after pour créer l'effet split :
+  - La moitié gauche (30%) est un solide --c-darkest
+  - Une zone de fondu (~20%) fait la transition
+  - Le reste laisse voir l'image de fond
+*/
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* fond image uniquement sur la droite */
   background-image: url('../assets/hero-bg2.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      105deg,
-      rgba(17, 51, 86, 0.52) 0%,
-      rgba(17, 51, 86, 0.25) 45%,
-      rgba(17, 51, 86, 0.0) 100%
-    ),
-    radial-gradient(ellipse 100% 60% at 50% 110%, rgba(17, 51, 86, 0.7) 0%, transparent 70%);
-  pointer-events: none;
   z-index: 0;
 }
 
-.hero-inner {
-  position: relative;
+/* Overlay split : couleur pleine à gauche, fondu vers transparent */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    var(--c-darkest)           0%,   /* plein couleur */
+    var(--c-darkest)           28%,  /* tient sur 28% */
+    rgba(17, 51, 86, 0.85)     38%,  /* début du fondu */
+    rgba(17, 51, 86, 0.45)     52%,  /* milieu doux */
+    rgba(17, 51, 86, 0.10)     68%,  /* presque transparent */
+    rgba(17, 51, 86, 0.0)      80%   /* image nette à droite */
+  );
   z-index: 1;
-  width: 100%;
-  margin: 0 auto;
-  padding: 2rem 5rem;
-  display: flex;
-  flex-direction: row;
-  gap: 4rem;
-  align-items: center;
+  pointer-events: none;
 }
 
-/* ── Hero typography ────────────────────────────────── */
+/* ── Contenu ────────────────────────────────────────── */
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 4rem 5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4rem;
+}
+
+.hero-text {
+  flex: 0 0 38%;   /* texte calé dans la zone sombre */
+  text-align: left;
+}
+
+.hero-visual {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Typographie ────────────────────────────────────── */
 .hero h1 {
   font-size: clamp(2rem, 4.5vw, 4rem);
   line-height: 1.15;
@@ -193,162 +191,56 @@ nav.scrolled {
 .hero-text p {
   font-size: clamp(0.9rem, 1.5vw, 1.05rem);
   line-height: 1.7;
-  color: var(--c-white);      /* légèrement bleuté, lisible sur fond sombre */
+  color: var(--c-lightest);
   opacity: 0.92;
-  max-width: 480px;
-  margin: 0 auto;
+  max-width: 420px;
 }
 
-/* Hero-bg (éléments décoratifs flottants) */
-.hero-bg .circle-1 {
-  position: absolute;
-  top: -180px; right: -140px;
-  width: 680px; height: 680px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 40%, var(--c-light) 0%, var(--c-mid) 55%, var(--c-dark) 100%);
-  opacity: .10;                  /* réduit pour ne pas rivaliser avec l'image */
-  animation: floatA 9s ease-in-out infinite;
-}
-
-
-/* ── Hero columns ─────────────────────────────────── */
-.hero-text {
-  flex: 1 1 0;
-  text-align: left;
-}
-
-.hero-visual {
-  flex: 1 1 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeLeft .8s .3s ease both;
-}
-
-/* ── Hero card grid ───────────────────────────────── */
-.hero-card-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-  width: 100%;
-}
-
-.hero-card {
-  background: rgba(130, 175, 242, 0.12); /* semi-transparent sur image */
-  border: 1px solid rgba(130, 175, 242, 0.35);
-  border-radius: 20px;
-  padding: 1.75rem 1.5rem;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  color: #fff;                   /* texte blanc sur fond image */
-  font-size: 0.9rem;
-  line-height: 1.5;
-  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-}
-
-.hero-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--c-light);
-  background: rgba(130, 175, 242, 0.22);
-}
-
-/* ── Animations ───────────────────────────────────── */
-@keyframes floatA {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-24px); }
-}
-@keyframes floatB {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(18px); }
-}
-@keyframes spin {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to   { transform: translate(-50%, -50%) rotate(360deg); }
-}
-@keyframes fadeLeft {
-  from { opacity: 0; transform: translateX(30px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-/* ── Responsive : tablette (≤ 900px) ──────────────── */
+/* ── Responsive mobile ──────────────────────────────── */
 @media (max-width: 900px) {
+  .hero {
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Sur tablette/mobile : overlay uniforme, plus de split */
+  .hero::after {
+    background: rgba(17, 51, 86, 0.65);
+  }
+
   .hero-inner {
     flex-direction: column;
-    gap: 2.5rem;
     padding: 3rem 2rem;
+    gap: 2rem;
     text-align: center;
   }
 
   .hero-text {
+    flex: unset;
     text-align: center;
   }
 
-  .hero-text p {
-    margin: 0 auto;
-  }
-
-  .hero-visual {
-    width: 100%;
-  }
-
-  .hero-card-grid {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 480px;
-    margin: 0 auto;
-  }
+  .hero-text p { max-width: 100%; }
 }
 
-/* ── Responsive : mobile (≤ 680px) ───────────────── */
 @media (max-width: 680px) {
-  nav {
-    padding: 0 1.25rem;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
+  nav { padding: 0 1.25rem; }
+  .nav-links { display: none; }
   .mobile-hint {
     display: block;
     font-size: 0.75rem;
     color: var(--c-light);
     opacity: 0.6;
-    margin-top: 0.25rem;
   }
 
-  /* Sur mobile on désactive le parallax (évite les bugs iOS) */
-  .hero {
-    background-attachment: scroll;
-  }
+  .hero::before { background-attachment: scroll; }
 
-  .hero-inner {
-    padding: 2.5rem 1.25rem;
-    gap: 2rem;
-  }
-
-  .hero h1 {
-    font-size: clamp(1.75rem, 8vw, 2.5rem);
-  }
-
-  .hero-card-grid {
-    grid-template-columns: 1fr;
-    max-width: 340px;
-  }
-
-  .hero-card {
-    padding: 1.25rem 1.25rem;
-  }
+  .hero-inner { padding: 2.5rem 1.25rem; }
+  .hero h1 { font-size: clamp(1.75rem, 8vw, 2.5rem); }
 }
 
-/* ── Responsive : très petit (≤ 380px) ────────────── */
 @media (max-width: 380px) {
-  .hero-card-grid {
-    grid-template-columns: 1fr;
-  }
-
-  nav {
-    padding: 0 1rem;
-  }
+  nav { padding: 0 1rem; }
 }
 
 .mobile-hint { display: none; }
