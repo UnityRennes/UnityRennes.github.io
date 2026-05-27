@@ -54,6 +54,7 @@
 
 
   
+  <!-- ════════════ À PROPOS ════════════ -->
   <section class="about" id="about">
     <div class="about-inner">
 
@@ -65,48 +66,56 @@
         <div class="about-header-line"></div>
       </div>
 
-      <div class="about-grid">
-
-        <!-- Bloc 1 : Où -->
-        <div class="about-block">
+      <!-- ── Bloc 1 : Où — texte gauche, carte droite ── -->
+      <div class="about-row">
+        <div class="about-row-text">
           <span class="about-block-num">01</span>
-          <div class="about-block-icon">
-            <!-- icône épingle / lieu -->
-            <svg viewBox="0 0 24 24">
-              <path d="M12 2C8.686 2 6 4.686 6 8c0 5.25 6 13 6 13s6-7.75 6-13c0-3.314-2.686-6-6-6z"/>
-              <circle cx="12" cy="8" r="2"/>
-            </svg>
-          </div>
-          <h3>Où se déroulent les séances ?</h3>
+          <h3>Où / Quand se déroulent les séances ?</h3>
           <p>
-            Les séances ont lieu à Rennes, dans des espaces adaptés à nos activités.
-            Les lieux sont communiqués en avance via notre canal de diffusion.
-            Certaines sessions se tiennent en extérieur selon la météo et le programme du moment.
+            Les séances ont lieu à Rennes, aux parcs du Mail François Mitterand ou de plaine de Baud : des espaces publics dédiés à notre activité.
+            Les lieux et horaires sont systématiquement communiqués en avance sur <a href="https://www.instagram.com/unityrennes35/">notre compte Instagram</a>.
           </p>
         </div>
+        <div class="about-row-media">
+          <iframe
+            title="Localisation des séances – Rennes"
+            src="https://maps.google.com/maps?q=Street+Workout+Mail+François+Mitterand,+Rennes&output=embed"  
+            width="100%" height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
 
-        <!-- Bloc 2 : Qui organise -->
-        <div class="about-block">
+      <div class="about-separator"></div>
+
+      <!-- ── Bloc 2 : Organisateurs — image gauche, texte droite ── -->
+      <div class="about-row about-row--reverse" style="grid-template-columns: 0.5fr 1fr;">
+        <div class="about-row-media">
+          <img src="./assets/orga.webp" alt="Les organisateurs" />
+        </div>
+        <div class="about-row-text">
           <span class="about-block-num">02</span>
-          <div class="about-block-icon">
-            <!-- icône personnes / équipe -->
-            <svg viewBox="0 0 24 24">
-              <circle cx="9" cy="7" r="3"/>
-              <path d="M3 20c0-3.314 2.686-6 6-6s6 2.686 6 6"/>
-              <circle cx="17" cy="7" r="3"/>
-              <path d="M21 20c0-3.314-1.343-6-4-6"/>
-            </svg>
-          </div>
           <h3>Qui organise les séances ?</h3>
           <p>
-            Les séances sont portées par un noyau de membres investis au sein de l'association.
-            Chacun apporte son expertise, son énergie et sa vision — pas de hiérarchie stricte,
-            mais une co-responsabilité partagée entre tous les organisateurs.
+            Bla Bla Bla ... Arthur et Louis ... Bla Bla Bla ...
           </p>
         </div>
+      </div>
 
-        <!-- Bloc 3 : Qui peut venir -->
-        <div class="about-block">
+      <div class="about-separator"></div>
+
+      <!-- ── Bloc 3 : Qui peut venir — image gauche, texte droite ── -->
+      <div class="about-row about-row--reverse">
+        <div class="about-row-media carousel">
+          <div class="carousel-track">
+            <img src="./assets/commu1.webp" alt="communaute" />
+            <img src="./assets/commu2.webp" alt="communaute" />
+          </div>
+        </div>
+        <div class="about-row-text">
           <span class="about-block-num">03</span>
           <h3>Qui peut venir ?</h3>
           <p>
@@ -115,8 +124,8 @@
             pour être accessibles et inclusives. Un seul critère : l'envie de progresser ensemble.
           </p>
         </div>
-
       </div>
+
     </div>
   </section>
 
